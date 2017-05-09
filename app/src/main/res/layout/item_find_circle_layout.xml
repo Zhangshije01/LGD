@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+        <com.lgd.lgdthesis.view.CircleImageView
+            android:id="@+id/iv_item_find_article_anvator"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@mipmap/icon_user_advator"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"/>
+        <com.lgd.lgdthesis.view.TextViewPlus
+            android:id="@+id/tv_item_find_article_name"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="张士杰"
+            android:layout_marginLeft="5dp"
+            android:textSize="@dimen/text_size_big"
+            android:layout_gravity="center_vertical"/>
+        <TextView
+            android:id="@+id/tv_item_find_article_time"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="9小时之前"
+            android:textSize="@dimen/text_size_small"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/colot_textview_dark"
+            android:layout_gravity="center_vertical"/>
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_item_find_article_title"
+
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="阿斯蒂芬立刻水电费阿萨德分阿斯蒂芬例会大师傅好阿斯蒂芬卡的福克斯的空间划分 "
+        android:maxLines="2"
+        android:maxLength="35"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="@dimen/text_size_biggist"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_item_find_article_type"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shap_find_article_type"
+            android:padding="5dp"
+            android:text="漫画。手绘"
+            android:textSize="@dimen/text_size_big" />
+
+        <TextView
+            android:id="@+id/tv_item_find_article_hasRead"
+
+            android:layout_marginLeft="10dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="@dimen/text_size_small"
+            android:text="阅读 120 *"
+            android:gravity="center_vertical"
+            />
+        <TextView
+            android:id="@+id/tv_item_find_article_hasComment"
+
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            android:textSize="@dimen/text_size_small"
+            android:text="评论 5 *"
+            android:gravity="center_vertical"
+            />
+        <TextView
+            android:id="@+id/tv_item_find_article_hasFlad"
+
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            android:textSize="@dimen/text_size_small"
+            android:text="喜欢 32 *"
+            android:gravity="center_vertical"
+            />
+        <TextView
+            android:id="@+id/tv_item_find_article_hasZan"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="@dimen/text_size_small"
+            android:text="赞赏 1"
+            android:gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>

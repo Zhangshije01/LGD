@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">LGDThesis</string>
+    <string name="main_tab_recent">首页</string>
+    <string name="main_tab_contact">发现</string>
+    <string name="main_tab_message">消息</string>
+    <string name="mian_tab_set">我的</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--user  -->
+    <string name="user_themes_name">我的</string>
+    <string name="user_public_article">公开文章</string>
+    <string name="user_private_article">私有文章</string>
+    <string name="user_collect_article">收藏的文章</string>
+    <string name="user_glad_article">喜欢的文章</string>
+    <string name="user_my_article">我的专题</string>
+    <string name="user_push">推送</string>
+    <string name="user_watch">浏览记录</string>
+    <string name="user_share">分享简书</string>
+    <string name="user_option">意见反馈</string>
+    <string name="user_about">关于</string>
+    <!--user details -->
+    <string name="user_detail_name">飞奔的小蜗牛壳儿</string>
+    <string name="user_detail_edit">编辑个人资料</string>
+
+    <!--message -->
+    <string name="message_themes_name">消息</string>
+    <string name="message_comment">评论</string>
+    <string name="message_chat">简信</string>
+    <string name="message_flad_zan">喜欢和赞</string>
+    <string name="message_attention">关注</string>
+    <string name="message_remind_other">其他提醒</string>
+
+    <!--find -->
+    <string name="find_hot_articles">热门文章</string>
+    <string name="find_dingzhi_articles">定制热门</string>
+
+    <!--main -->
+    <string name="main_themes_name">首页</string>
+    <string name="main_circle_friend">简友圈</string>
+
+    <!-- for custom font -->
+    <string name="font_palatino">palatino.otf</string>
+    <string name="font_regular">GTWalsheim_Regular.otf</string>
+    <string name="font_medium">GTWalsheim_Medium.otf</string>
+    <string name="font_bold">GTWalsheim_Bold.otf</string>
+
+
+</resources>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/ll_main_contaner"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"></LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom"
+                android:background="@color/common_white"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/btn_main_bottom_main"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/common_white"
+                        android:drawableTop="@drawable/selecter_bottom_main"
+                        android:onClick="onTabSelect"
+                        android:paddingBottom="2dip"
+                        android:paddingTop="2dip"
+                        android:scaleType="matrix"
+                        android:text="@string/main_tab_recent"
+                        android:textColor="@drawable/tab_textcolor"
+                        android:textSize="12sp" />
+
+                    <ImageView
+                        android:id="@+id/iv_bottom_main_tips"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginTop="7dp"
+                        android:background="@mipmap/msg_tips"
+                        android:contentDescription="@string/action_settings"
+                        android:gravity="center"
+                        android:textColor="@android:color/white"
+                        android:textSize="12sp"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/btn_main_bottom_find"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/common_white"
+                        android:drawableTop="@drawable/selecter_bottom_find"
+                        android:onClick="onTabSelect"
+                        android:paddingBottom="2dip"
+                        android:paddingTop="2dip"
+                        android:scaleType="matrix"
+                        android:text="@string/main_tab_contact"
+                        android:textColor="@drawable/tab_textcolor"
+                        android:textSize="12sp" />
+
+                    <ImageView
+                        android:id="@+id/iv_bottom_find_tips"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginTop="7dp"
+                        android:background="@mipmap/msg_tips"
+                        android:contentDescription="@string/action_settings"
+                        android:gravity="center"
+                        android:textColor="@android:color/white"
+                        android:textSize="12sp"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/btn_main_bottom_message"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/common_white"
+                        android:drawableTop="@drawable/selecter_bottom_main"
+                        android:onClick="onTabSelect"
+                        android:paddingBottom="2dip"
+                        android:paddingTop="2dip"
+                        android:scaleType="matrix"
+                        android:text="@string/main_tab_message"
+                        android:textColor="@drawable/tab_textcolor"
+                        android:textSize="12sp" />
+
+                    <ImageView
+                        android:id="@+id/iv_bottom_message_tips"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginTop="7dp"
+                        android:background="@mipmap/msg_tips"
+                        android:contentDescription="@string/action_settings"
+                        android:gravity="center"
+                        android:textColor="@android:color/white"
+                        android:textSize="12sp"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/btn_main_bottom_user"
+
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/common_white"
+                    android:drawableTop="@drawable/seleter_bottom_user"
+                    android:onClick="onTabSelect"
+                    android:paddingBottom="2dip"
+                    android:paddingTop="2dip"
+                    android:scaleType="matrix"
+                    android:text="@string/mian_tab_set"
+                    android:textColor="@drawable/tab_textcolor"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <com.lgd.lgdthesis.view.TouchView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="right|bottom"
+            android:layout_marginBottom="100dp"
+            android:layout_marginRight="50dp"
+            android:alpha="0.7"
+            android:background="@mipmap/icon_fast_write" />
+
+
+    </FrameLayout>
+</layout>
