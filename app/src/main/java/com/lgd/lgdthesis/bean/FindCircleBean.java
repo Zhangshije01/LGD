@@ -9,6 +9,7 @@ import cn.bmob.v3.BmobObject;
  */
 
 public class FindCircleBean extends BmobObject{
+    private UserBean userBean;//用户信息
     private String avdator;//用户头像
     private String user_name;//用户昵称
     private String time;//用户发表文章时间
@@ -23,17 +24,12 @@ public class FindCircleBean extends BmobObject{
     public FindCircleBean() {
     }
 
-    public FindCircleBean(String avdator, String user_name, String time, String article_name, String article_type, String hasReaded, String hasComment, String hasFlad, String hasZan, String details) {
-        this.avdator = avdator;
-        this.user_name = user_name;
-        this.time = time;
-        this.article_name = article_name;
-        this.article_type = article_type;
-        this.hasReaded = hasReaded;
-        this.hasComment = hasComment;
-        this.hasFlad = hasFlad;
-        this.hasZan = hasZan;
-        this.details = details;
+    public void setUserBean(UserBean userBean) {
+        this.userBean = userBean;
+    }
+
+    public UserBean getUserBean() {
+        return userBean;
     }
 
     public void setAvdator(String avdator) {

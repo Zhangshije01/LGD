@@ -35,28 +35,7 @@ public class MainActivity extends BasesActivity implements HomeContract.MvpView{
         homePresenter = new HomePresenter(this);
         initView();
 
-//        final UMImage thumb =  new UMImage(this, R.drawable.umeng_socialize_back_icon);
-//        mBinding.btShare.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                new ShareAction(MainActivity.this).withMedia(thumb)
-//                        .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,SHARE_MEDIA.WEIXIN)
-//                        .setCallback(umShareListener).open();
-//            }
-//        });
-//        if(Build.VERSION.SDK_INT>=23){
-//            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
-//                    Manifest.permission.ACCESS_FINE_LOCATION,
-//                    Manifest.permission.CALL_PHONE,
-//                    Manifest.permission.READ_LOGS,
-//                    Manifest.permission.READ_PHONE_STATE,
-//                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-//                    Manifest.permission.SET_DEBUG_APP,
-//                    Manifest.permission.SYSTEM_ALERT_WINDOW,
-//                    Manifest.permission.GET_ACCOUNTS,
-//                    Manifest.permission.WRITE_APN_SETTINGS};
-//            ActivityCompat.requestPermissions(this,mPermissionList,123);
-//        }
+
 
     }
     public void initView(){

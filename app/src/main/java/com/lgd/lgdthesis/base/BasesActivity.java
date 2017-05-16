@@ -1,5 +1,6 @@
 package com.lgd.lgdthesis.base;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,10 +14,12 @@ import com.umeng.socialize.utils.Log;
 
 public class BasesActivity extends AppCompatActivity {
 
+    public Context mContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bases);
+        mContext = this;
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

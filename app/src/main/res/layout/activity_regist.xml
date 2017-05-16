@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="20dp"
+            android:background="@color/colorPrimaryDark"
+            android:paddingBottom="20dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_turn_back"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_vertical"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="注册账号"
+                android:textSize="@dimen/text_size_bigger"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="10dp"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_register_areacode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape_regist_login_layout"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="8dp" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="16sp"
+                android:text="手机号归属地"
+
+                />
+            <TextView
+                android:id="@+id/tv_register_area"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@mipmap/ic_right_arrow"
+                android:drawablePadding="5dp"
+                android:textSize="15sp"
+                android:text="中国"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+
+            android:background="@drawable/shape_regist_login_layout"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="20dp"
+                android:scaleType="centerInside"
+                android:src="@mipmap/icon_regist_phont"
+
+                />
+
+            <TextView
+                android:id="@+id/tv_register_areacode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:textColor="#cccccc"
+                android:textSize="14sp"
+                android:text="+86"
+                />
+
+            <com.lgd.lgdthesis.view.ClearEditText
+                android:id="@+id/et_phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+                android:hint="@string/regist_you_phone"
+                android:textColorHint="#cccccc"
+                android:textColor="@color/colot_textview_dark"
+                android:textSize="16sp"
+                android:singleLine="true"
+                android:textCursorDrawable="@drawable/color_cursor"/>
+        </LinearLayout>
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/shape_regist_button"
+            android:onClick="onGetIdentityNumClick"
+            android:padding="5dp"
+            android:text="获取验证码"
+            android:textColor="@color/common_white"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="26dp"
+            android:orientation="horizontal"
+            >
+
+            <CheckBox
+                android:id="@+id/cb_agree"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center_vertical"
+                android:button="@null"
+                android:background="@drawable/selector_user_agree"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:text="同意"
+                android:textColor="#8c8c8c"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_read_http_deal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="2dp"
+                android:text="《简信客户端用户协议》"
+                android:textSize="12sp"
+                android:textColor="@color/color_view_red"/>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

@@ -99,6 +99,7 @@
             android:background="@color/color_view_gray"/>
 
         <LinearLayout
+            android:id="@+id/ll_message_seek"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal">
@@ -126,6 +127,7 @@
             android:background="@color/color_view_gray"/>
 
         <LinearLayout
+            android:id="@+id/ll_message_send_article"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal">

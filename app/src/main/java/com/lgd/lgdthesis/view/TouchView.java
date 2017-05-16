@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.lgd.lgdthesis.activity.WriteActivity;
+
 public class TouchView extends View {
 
     private float downX;
@@ -181,7 +183,8 @@ public class TouchView extends View {
                     if (listener != null){
                     	listener.onClick(this);//触发单击
                     }
-                    Toast.makeText(getContext(), "a", Toast.LENGTH_SHORT).show();
+                    WriteActivity.start(getContext());
+//                    Toast.makeText(getContext(), "a", Toast.LENGTH_SHORT).show();
 //                    getContext().startActivity(new Intent(getContext(),TurnActivity.class));
                     
                 }

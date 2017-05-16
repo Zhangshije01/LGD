@@ -27,8 +27,8 @@
     <string name="message_themes_name">消息</string>
     <string name="message_comment">评论</string>
     <string name="message_chat">简信</string>
-    <string name="message_flad_zan">喜欢和赞</string>
-    <string name="message_attention">关注</string>
+    <string name="message_flad_zan">查看</string>
+    <string name="message_attention">发文</string>
     <string name="message_remind_other">其他提醒</string>
 
     <!--find -->
@@ -38,6 +38,17 @@
     <!--main -->
     <string name="main_themes_name">首页</string>
     <string name="main_circle_friend">简友圈</string>
+
+    <!--login register -->
+    <string name="regist_you_phone">请输入你的手机号</string>
+
+    <!--userDetail -->
+    <string name="user_detail_dynamic">动态</string>
+    <string name="user_detail_article">文章</string>
+    <string name="user_detail_more">更多</string>
+
+    <string name="user_fragment_option_hint_phone">请输入手机号  以便我跟你联系</string>
+    <string name="user_fragment_option_hint">写下你的需求和意见  我会第一时间跟你沟通解决</string>
 
     <!-- for custom font -->
     <string name="font_palatino">palatino.otf</string>

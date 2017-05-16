@@ -115,7 +115,16 @@
 
         <activity android:name=".base.BasesActivity" />
         <activity android:name=".activity.UserDetailsActivity" />
-        <activity android:name=".activity.LoginRegistActivity"></activity>
+        <activity android:name=".activity.LoginRegistActivity" />
+        <activity android:name=".activity.RegistActivity" />
+        <activity android:name=".activity.YanZhengMaActivity" />
+        <activity android:name=".activity.RegistPasswordActivity" />
+        <activity android:name=".activity.OptionActivity" />
+        <activity android:name=".activity.AboutActivity" />
+        <activity android:name=".activity.UserEditActivity" />
+        <activity android:name=".activity.WriteActivity" />
+        <activity android:name=".activity.SendArticleActivity" />
+        <activity android:name=".activity.SeakActivity"></activity>
     </application>
 
 </manifest>

@@ -1,9 +1,14 @@
 package com.lgd.lgdthesis.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextWatcher;
+import android.text.style.ImageSpan;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -113,6 +118,29 @@ public class ClearEditText extends EditText implements View.OnFocusChangeListene
         translateAnimation.setInterpolator(new CycleInterpolator(counts));
         translateAnimation.setDuration(1000);
         return translateAnimation;
+    }
+
+    //    public void insertDrawable(Bitmap b, String imagepath) {
+//        final SpannableString s = new SpannableString(imagepath);
+//        //得到drawable对象，即所要插入的图片
+//        Drawable d = new BitmapDrawable(b);
+//        d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
+//        //用这个drawable对象代替字符串imagepath
+//        ImageSpan span = new ImageSpan(d, ImageSpan.ALIGN_BASELINE);
+//        //包括0但是不包括magepath.length()即：imagepath.length()。[0,magepath.length())。值得注意的是当我们复制这个图片的时候，实际是复制了imagepath这个字符串。
+//        s.setSpan(span, 0, imagepath.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+//        append(s);
+//    }
+    public void insertDrawable(int id) {
+        final SpannableString ss = new SpannableString("easy");
+        //得到drawable对象，即所有插入的图片
+        Drawable d = getResources().getDrawable(id);
+        d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
+        //用这个drawable对象代替字符串easy
+        ImageSpan span = new ImageSpan(d, ImageSpan.ALIGN_BASELINE);
+        //包括0但是不包括"easy".length()即：4。[0,4)
+        ss.setSpan(span, 0, "easy".length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+        append(ss);
     }
 
 

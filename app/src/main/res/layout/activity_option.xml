@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="20dp"
+
+            android:background="@color/colorPrimaryDark"
+            android:paddingBottom="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_turn_back"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_vertical"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="意见反馈"
+                android:textSize="@dimen/text_size_bigger"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="发送"
+                android:textSize="@dimen/text_size_bigger"
+                android:gravity="center_vertical"
+                android:layout_marginRight="20dp"/>
+        </LinearLayout>
+        <com.lgd.lgdthesis.view.ClearEditText
+            android:id="@+id/edit_user_fragment_option"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp"
+            android:hint="@string/user_fragment_option_hint"
+            android:gravity="top"
+            android:maxLength="15"
+            android:textColor="@color/colot_textview_dark"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@null"
+            />
+        <com.lgd.lgdthesis.view.ClearEditText
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="@string/user_fragment_option_hint_phone"
+            android:textColor="@color/colot_textview_dark"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@null"
+            android:singleLine="true"
+            />
+
+    </LinearLayout>
+
+</layout>
