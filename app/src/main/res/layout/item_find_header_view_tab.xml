@@ -2,71 +2,85 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
-        <TextView
-            android:id="@+id/tv_item_find_view_tab"
+
+        <com.xyzlf.autoplay.viewpager.CustomerBanner
+            android:id="@+id/banner_header_view"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="aaaaaaaaaaaa"/>
+            android:layout_height="150dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/red"
+                android:text="  热门专题"
+                android:textSize="@dimen/text_size_bigger" />
+
+        </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/rl_column"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="60dp"
             android:layout_gravity="center_vertical">
-
-            <FrameLayout
+            <com.lgd.lgdthesis.view.ColumnHorizontalScrollView
+                android:id="@+id/mColumnHorizontalScrollView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:scrollbars="none">
 
-                <com.lgd.lgdthesis.view.ColumnHorizontalScrollView
-                    android:id="@+id/mColumnHorizontalScrollView"
+                <LinearLayout
+                    android:id="@+id/mRadioGroup_content"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_centerVertical="true"
-                    android:scrollbars="none">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="8.0dip"
+                    android:paddingRight="8.0dip" />
+            </com.lgd.lgdthesis.view.ColumnHorizontalScrollView>
 
-                    <LinearLayout
-                        android:id="@+id/mRadioGroup_content"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingLeft="8.0dip"
-                        android:paddingRight="8.0dip" />
-                </com.lgd.lgdthesis.view.ColumnHorizontalScrollView>
-
-            </FrameLayout>
         </RelativeLayout>
 
         <LinearLayout
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_size_bigger"
-                android:drawableLeft="@mipmap/red"
                 android:layout_marginLeft="20dp"
-                android:text="  热门文章"/>
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/red"
+                android:text="  热门文章"
+                android:textSize="@dimen/text_size_bigger" />
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/icon_find_dingzhi"
-                />
+                android:src="@mipmap/icon_find_dingzhi" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_size_bigger"
+                android:layout_marginRight="20dp"
                 android:text="@string/find_dingzhi_articles"
-                android:layout_marginRight="20dp"/>
+                android:textSize="@dimen/text_size_bigger" />
         </LinearLayout>
 
 

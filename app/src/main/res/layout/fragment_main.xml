@@ -20,14 +20,14 @@
                 app:customFont="@string/font_bold"/>
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginRight="20dp"
                 android:layout_gravity="center_vertical"
                 android:src="@mipmap/icon_main_friend_circle"/>
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginRight="20dp"
                 android:layout_gravity="center_vertical"
                 android:src="@mipmap/icon_user_find"/>

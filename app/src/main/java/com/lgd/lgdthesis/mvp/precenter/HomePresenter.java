@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.lgd.lgdthesis.activity.UserDetailsActivity;
 import com.lgd.lgdthesis.app.LGDApplication;
+import com.lgd.lgdthesis.bean.FindCircleBean;
 import com.lgd.lgdthesis.bean.UserBean;
 import com.lgd.lgdthesis.mvp.contract.HomeContract;
 import com.lgd.lgdthesis.utils.LogUtils;
@@ -16,6 +17,7 @@ import java.util.List;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import de.greenrobot.dao.query.Query;
 
 /**
  * Created by admin on 17/4/12.
@@ -46,27 +48,6 @@ public class HomePresenter implements HomeContract.Presenter {
 
     @Override
     public void initLogin(final Context context, final String userName, final String userPassword) {
-        BmobQuery<UserBean> query = new BmobQuery<>();
-        query.addWhereEqualTo("userAccount",userName);
-        query.findObjects(new FindListener<UserBean>() {
-            @Override
-            public void done(List<UserBean> list, BmobException e) {
-                if(e == null){
-                    String password = list.get(0).getUserPassword();
-                    if(list !=null && list.size()>0){
-                        if(userPassword.equals(password)){
-                            //登录成功
-                            ToastUtils.show("登录成功");
-                            UserBean userBean = list.get(0);
-                            LGDApplication.getInstance().setUserBean(userBean);
-                            UserDetailsActivity.start(context);
 
-                        }
-                    }
-                }else{
-                    ToastUtils.show(e.getMessage());
-                }
-            }
-        });
     }
 }

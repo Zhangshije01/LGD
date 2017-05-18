@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.Formatter;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
@@ -135,7 +136,7 @@ public class SendArticleActivity extends AppCompatActivity {
                         filePathBean = new FilePathBean();
 
                         filePathBean.setName(file2.getName());
-                        filePathBean.setSize(String.valueOf(file2.length()));
+                        filePathBean.setSize(formateFileSize(file2.length()));
                         filePathBean.setPath(file2.getAbsolutePath());
                         filePathBean.setTime(Util.Time(new Date(file2.lastModified())));
 
@@ -185,10 +186,11 @@ public class SendArticleActivity extends AppCompatActivity {
 //					FilePathBean filePathBean;
 
                     for (int i = 0; i < snum; i++) {
-                        String name = preferences.getString("num" + i, null);
+                        String name = preferences.getString("name" + i, null);
                         String size = preferences.getString("size" + i, null);
                         String path = preferences.getString("path" + i, null);
                         String time = preferences.getString("time" + i, null);
+                        LogUtils.d("name"+name);
                         filePathBean = new FilePathBean();
                         filePathBean.setName(name);
                         filePathBean.setSize(size);
@@ -207,5 +209,8 @@ public class SendArticleActivity extends AppCompatActivity {
             thread.start();
         }
 
+    }
+    private String formateFileSize(long size){
+        return Formatter.formatFileSize(SendArticleActivity.this, size);
     }
 }

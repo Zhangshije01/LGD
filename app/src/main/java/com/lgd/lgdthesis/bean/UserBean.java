@@ -13,6 +13,7 @@ public class UserBean extends BmobObject{
     private String userDetail;//用户主页
     private String userAccount;//用户账号
     private String userPassword;//用户密码
+    private String installId;//手机设备号
 
     public UserBean() {
     }
@@ -72,5 +73,13 @@ public class UserBean extends BmobObject{
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
+    }
+
+    public void setInstallId(String installId) {
+        this.installId = installId;
+    }
+
+    public String getInstallId() {
+        return installId;
     }
 }

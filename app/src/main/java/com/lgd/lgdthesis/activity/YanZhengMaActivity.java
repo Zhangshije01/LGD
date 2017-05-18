@@ -54,6 +54,7 @@ public class YanZhengMaActivity extends AppCompatActivity {
                                 ToastUtils.show("短信验证成功");
                                 LogUtils.d("afterEvent: "+regist_phone+yanzhengma);
                                 RegistPasswordActivity.start(YanZhengMaActivity.this,regist_phone);
+                                finish();
                             }else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE){
                                 //获取验证码成功
                                 LogUtils.d("afterEvent: 2"+regist_phone+yanzhengma);

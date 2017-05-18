@@ -15,6 +15,7 @@ import com.lgd.lgdthesis.cache.LGDSharedprefrence;
 import com.lgd.lgdthesis.databinding.ActivityRegistPasswordBinding;
 import com.lgd.lgdthesis.utils.ToastUtils;
 
+import cn.bmob.v3.BmobInstallation;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
@@ -43,15 +44,15 @@ public class RegistPasswordActivity extends AppCompatActivity {
                 final UserBean userBean = new UserBean();
                 userBean.setUserAccount(phonenum);
                 userBean.setUserPassword(password);
+                userBean.setInstallId(BmobInstallation.getInstallationId(RegistPasswordActivity.this));
                 userBean.save(new SaveListener<String>() {
                     @Override
                     public void done(String s, BmobException e) {
                         if(e == null){
                             ToastUtils.show("注册成功");
-                            LGDSharedprefrence.setUserAccount(phonenum);
-                            LGDSharedprefrence.setUserPassword(password);
-                            LGDSharedprefrence.setUserObjectId(userBean.getObjectId());
+
                             LoginRegistActivity.start(RegistPasswordActivity.this,userBean);
+                            finish();
                         }else {
                             ToastUtils.show("注册失败："+e.getMessage());
                             return;

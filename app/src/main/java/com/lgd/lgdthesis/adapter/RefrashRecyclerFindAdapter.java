@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.lgd.lgdthesis.bean.FindCircleBean;
 import com.lgd.lgdthesis.R;
+import com.lgd.lgdthesis.utils.LogUtils;
 import com.lgd.lgdthesis.view.CircleImageView;
 
 import java.util.ArrayList;
@@ -23,11 +24,11 @@ public class RefrashRecyclerFindAdapter extends RecyclerView.Adapter<RecyclerVie
     private LayoutInflater mInflater;
     private Context mContext;
     private List<FindCircleBean> mLists = new ArrayList<>();
-    private static final int HEADER_ITEM = 0;//表示有头布局
-    private static final int FOOTER_ITEM = 0;//表示有底布局
-    private static final int NOMAL_ITEM = 1;//表示没有头和底布局
-    private View view_header;//头布局
-    private View view_footer;//底布局
+
+    public static final int TYPE_HEADER = 0;
+    public static final int TYPE_NORMAL = 1;
+    private View mHeaderView;
+
     public RefrashRecyclerFindAdapter(Context context) {
         this.mContext = context;
         mInflater = LayoutInflater.from(context);
@@ -39,69 +40,46 @@ public class RefrashRecyclerFindAdapter extends RecyclerView.Adapter<RecyclerVie
         mLists.addAll(findCircleBeenList);
         notifyDataSetChanged();
     }
-
-    public View getView_header() {
-        return view_header;
-    }
-
-    public void setView_header(View view_header) {
-        this.view_header = view_header;
+    public void setHeaderView(View headerView) {
+        mHeaderView = headerView;
         notifyItemInserted(0);
     }
-
-    public View getView_footer() {
-        return view_footer;
-    }
-
-    public void setView_footer(View view_footer) {
-        this.view_footer = view_footer;
-        notifyItemInserted(getItemCount() - 1);
+    public View getHeaderView() {
+        return mHeaderView;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if(view_header != null && viewType == HEADER_ITEM) {
-            return new NomalViewHolder(view_header);
-        }
-        if(view_footer != null && viewType == FOOTER_ITEM){
-            return new NomalViewHolder(view_footer);
-        }
+        if(mHeaderView != null && viewType == TYPE_HEADER) return new NomalViewHolder(mHeaderView);
         View layout = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_find_circle_layout, parent, false);
         return new NomalViewHolder(layout);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if(getItemViewType(position) == NOMAL_ITEM){
-            if(holder instanceof NomalViewHolder) {
-                //这里加载数据的时候要注意，是从position-1开始，因为position==0已经被header占用了
-//                ((ListHolder) holder).tv.setText(mDatas.get(position-1));
-                FindCircleBean findCirclebean = mLists.get(position - 1);
-                return;
-            }
-            return;
-        }else if(getItemViewType(position) == HEADER_ITEM){
-            return;
-        }else{
-            return;
+        if(getItemViewType(position) == TYPE_HEADER) return;
+        final int pos = getRealPosition(holder);
+        FindCircleBean findCircleBean = mLists.get(pos);
+        if(holder instanceof NomalViewHolder) {
+            ((NomalViewHolder) holder).tv_find_name.setText("adsf");
         }
     }
 
-    /** 重写这个方法，很重要，是加入Header和Footer的关键，我们通过判断item的类型，从而绑定不同的view    * */
     @Override
     public int getItemViewType(int position) {
-        if (view_header == null && view_footer == null){
-            return NOMAL_ITEM;
-        }
-        if (position == 0){
-            //第一个item应该加载Header
-            return HEADER_ITEM;
-        }
-        if (position == getItemCount()-1){
-            //最后一个,应该加载Footer
-            return FOOTER_ITEM;
-        }
-        return NOMAL_ITEM;
+        if(mHeaderView == null) return TYPE_NORMAL;
+        if(position == 0) return TYPE_HEADER;
+        return TYPE_NORMAL;
+    }
+
+    public int getRealPosition(RecyclerView.ViewHolder holder) {
+        int position = holder.getLayoutPosition();
+        return mHeaderView == null ? position : position - 1;
+    }
+
+    @Override
+    public int getItemCount() {
+        return mHeaderView == null ? mLists.size() : mLists.size() + 1;
     }
 
     //自定义的ViewHolder，持有每个Item的的所有界面元素
@@ -117,12 +95,6 @@ public class RefrashRecyclerFindAdapter extends RecyclerView.Adapter<RecyclerVie
         public TextView tv_find_hasZan;
         public NomalViewHolder(View view){
             super(view);
-            if(view == view_header){
-                return;
-            }
-            if(view == view_footer){
-                return;
-            }
             iv_find_anvator = (CircleImageView) view.findViewById(R.id.iv_item_find_article_anvator);
             tv_find_name = (TextView) view.findViewById(R.id.tv_item_find_article_name);
             tv_find_time = (TextView) view.findViewById(R.id.tv_item_find_article_time);
@@ -132,20 +104,6 @@ public class RefrashRecyclerFindAdapter extends RecyclerView.Adapter<RecyclerVie
             tv_find_hasComment = (TextView) view.findViewById(R.id.tv_item_find_article_hasComment);
             tv_find_hasFlad = (TextView) view.findViewById(R.id.tv_item_find_article_hasFlad);
             tv_find_hasZan = (TextView) view.findViewById(R.id.tv_item_find_article_hasZan);
-        }
-    }
-
-    //返回View中Item的个数，这个时候，总的个数应该是ListView中Item的个数加上HeaderView和FooterView
-    @Override
-    public int getItemCount() {
-        if(view_header == null && view_footer == null){
-            return mLists.size();
-        }else if(view_header == null && view_footer != null){
-            return mLists.size() + 1;
-        }else if (view_header != null && view_footer == null){
-            return mLists.size() + 1;
-        }else {
-            return mLists.size() + 2;
         }
     }
 

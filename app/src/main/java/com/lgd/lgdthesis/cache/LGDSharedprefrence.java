@@ -49,4 +49,14 @@ public class LGDSharedprefrence implements LGDAppUtils.PreferenceKeys{
         SharedPreferences sharedPreferences = initSharedPreferences();
         return sharedPreferences.getString(USER_OBJECTID,"");
     }
+
+    public static void setUserInstallId(String userInstallId){
+        SharedPreferences.Editor editor = initSharedPreferences().edit();
+        editor.putString(USER_INSTALLID,userInstallId);
+        editor.apply();
+    }
+    public static String getUserInstallId(){
+        SharedPreferences sharedPreferences = initSharedPreferences();
+        return sharedPreferences.getString(USER_INSTALLID,"");
+    }
 }

@@ -21,14 +21,15 @@
                 app:customFont="@string/font_bold"/>
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginRight="20dp"
                 android:layout_gravity="center_vertical"
                 android:src="@mipmap/icon_user_setting"/>
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/iv_user_fragment_search"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginRight="20dp"
                 android:layout_gravity="center_vertical"
                 android:src="@mipmap/icon_user_find"/>
@@ -267,6 +268,21 @@
                         android:layout_gravity="center_vertical"
                         android:textSize="@dimen/text_size_bigger"
                         android:layout_marginLeft="10dp"/>
+                    <ImageView
+                        android:id="@+id/iv_user_fragment_push_on"
+                        android:layout_width="50dp"
+                        android:layout_height="30dp"
+                        android:src="@mipmap/icon_user_push_on"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="10dp"
+                        android:visibility="gone"/>
+                    <ImageView
+                        android:id="@+id/iv_user_fragment_push_off"
+                        android:layout_width="50dp"
+                        android:layout_height="30dp"
+                        android:src="@mipmap/icon_user_push_off"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="10dp"/>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"

@@ -135,7 +135,7 @@ public class UpdateAdapter extends BaseAdapter{
 				if(e == null){
 					Log.d("TAG", "保存成功");
 					dialog.dismiss();
-					Toast.makeText(context, "保存成功", Toast.LENGTH_SHORT).show();
+					Toast.makeText(context, "上传成功", Toast.LENGTH_SHORT).show();
 				}
 			}
 		});

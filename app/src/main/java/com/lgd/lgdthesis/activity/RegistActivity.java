@@ -41,6 +41,7 @@ public class RegistActivity extends AppCompatActivity {
                         Log.d("sendRAG",s+s1);
                         ToastUtils.show("ok");
                         YanZhengMaActivity.start(RegistActivity.this,phoneNum);
+                        finish();
                         return false;
                     }
                 });

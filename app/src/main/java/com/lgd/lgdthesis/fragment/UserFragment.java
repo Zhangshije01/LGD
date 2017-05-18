@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.lgd.lgdthesis.R;
 import com.lgd.lgdthesis.activity.AboutActivity;
 import com.lgd.lgdthesis.activity.OptionActivity;
+import com.lgd.lgdthesis.activity.SearchActivity;
 import com.lgd.lgdthesis.activity.UserDetailsActivity;
 import com.lgd.lgdthesis.base.BasesFragment;
 import com.lgd.lgdthesis.databinding.FragmentUserBinding;
@@ -78,5 +79,14 @@ public class UserFragment extends BasesFragment {
                 AboutActivity.start(getContext());
             }
         });
+
+        mBinding.ivUserFragmentSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SearchActivity.start(getContext());
+            }
+        });
+        //推送设置
+        
     }
 }

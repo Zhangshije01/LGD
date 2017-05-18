@@ -11,6 +11,7 @@ import android.view.View;
 import com.lgd.lgdthesis.R;
 import com.lgd.lgdthesis.app.LGDApplication;
 import com.lgd.lgdthesis.base.BasesActivity;
+import com.lgd.lgdthesis.bean.FindCircleBean;
 import com.lgd.lgdthesis.bean.UserBean;
 import com.lgd.lgdthesis.cache.LGDSharedprefrence;
 import com.lgd.lgdthesis.databinding.ActivityLoginRegistBinding;
@@ -18,6 +19,12 @@ import com.lgd.lgdthesis.mvp.contract.HomeContract;
 import com.lgd.lgdthesis.mvp.precenter.HomePresenter;
 import com.lgd.lgdthesis.utils.LogUtils;
 import com.lgd.lgdthesis.utils.ToastUtils;
+
+import java.util.List;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 
 public class LoginRegistActivity extends BasesActivity implements HomeContract.MvpView {
 
@@ -61,10 +68,40 @@ public class LoginRegistActivity extends BasesActivity implements HomeContract.M
                     ToastUtils.show("用户名、密码不能为空");
                     return;
                 }
-                mPresenter.initLogin(LoginRegistActivity.this, userName, userPassword);
+//                mPresenter.initLogin(LoginRegistActivity.this, userName, userPassword);
+                initLogin(userName, userPassword);
             }
         });
     }
+    public void initLogin(final String userName, final String userPassword){
+        BmobQuery<UserBean> query = new BmobQuery<>();
+        query.addWhereEqualTo("userAccount",userName);
+        query.findObjects(new FindListener<UserBean>() {
+            @Override
+            public void done(List<UserBean> list, BmobException e) {
+                if(e == null){
+                    String password = list.get(0).getUserPassword();
+                    if(list !=null && list.size()>0){
+                        if(userPassword.equals(password)){
+                            //登录成功
+                            ToastUtils.show("登录成功");
+                            UserBean userBean = list.get(0);
+                            LGDSharedprefrence.setUserAccount(userName);
+                            LGDSharedprefrence.setUserPassword(password);
+                            LGDSharedprefrence.setUserObjectId(userBean.getObjectId());
+                            LGDSharedprefrence.setUserInstallId(userBean.getInstallId());
+                            LGDApplication.getInstance().setUserBean(userBean);
+                            UserDetailsActivity.start(LoginRegistActivity.this);
+                            finish();
+                        }
+                    }
+                }else{
+                    ToastUtils.show(e.getMessage());
+                }
+            }
+        });
+    }
+
 
     public void initData() {
         if (userBean != null) {
@@ -83,4 +120,5 @@ public class LoginRegistActivity extends BasesActivity implements HomeContract.M
     public Context getContext() {
         return this;
     }
+
 }

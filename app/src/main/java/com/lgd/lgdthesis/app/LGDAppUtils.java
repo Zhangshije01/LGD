@@ -14,5 +14,6 @@ public class LGDAppUtils {
         String USER_ACCOUNT = "user_account";
         String USER_OBJECTID = "user_objectId";
         String USER_PASWORD = "user_password";
+        String USER_INSTALLID = "user_installid";
     }
 }
