@@ -82,20 +82,6 @@
                         android:textColor="@drawable/tab_textcolor"
                         android:textSize="12sp" />
 
-                    <ImageView
-                        android:id="@+id/iv_bottom_find_tips"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginTop="7dp"
-                        android:background="@mipmap/msg_tips"
-                        android:contentDescription="@string/action_settings"
-                        android:gravity="center"
-                        android:textColor="@android:color/white"
-                        android:textSize="12sp"
-                        android:visibility="gone" />
                 </RelativeLayout>
 
                 <RelativeLayout

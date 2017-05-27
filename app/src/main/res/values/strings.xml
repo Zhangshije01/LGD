@@ -29,7 +29,7 @@
     <string name="message_chat">简信</string>
     <string name="message_flad_zan">查看</string>
     <string name="message_attention">发文</string>
-    <string name="message_remind_other">其他提醒</string>
+    <string name="message_remind_other">统计</string>
 
     <!--find -->
     <string name="find_hot_articles">热门文章</string>
@@ -55,6 +55,16 @@
     <string name="font_regular">GTWalsheim_Regular.otf</string>
     <string name="font_medium">GTWalsheim_Medium.otf</string>
     <string name="font_bold">GTWalsheim_Bold.otf</string>
+
+    <!--chat activity -->
+    <string name="voice_up_tips">手指上滑,取消发送</string>
+    <string name="voice_cancel_tips">松开手指，取消发送</string>
+    <string name="voice_seconds_tips">还可以说%1$s秒</string>
+    <string name="voice_short_tips">录音时间太短</string>
+    <string name="longclick_speak">长按说话</string>
+    <string name="picture">照片</string>
+    <string name="camera">拍摄</string>
+    <string name="location">位置</string>
 
 
 </resources>

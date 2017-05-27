@@ -1,20 +1,13 @@
 package com.lgd.lgdthesis.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import cn.bmob.v3.datatype.BmobFile;
-
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,6 +16,9 @@ import com.lgd.lgdthesis.app.LGDApplication;
 import com.lgd.lgdthesis.bean.FilePathBean;
 import com.lgd.lgdthesis.utils.DownloadManager;
 import com.lgd.lgdthesis.utils.Util;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DownloadAdapter extends BaseAdapter {
 
@@ -80,7 +76,7 @@ public class DownloadAdapter extends BaseAdapter {
                 Log.d("TAG", "url" + file.getFileUrl());
                 LGDApplication.getInstance().setFilepath(file.getPath());
                 DownloadManager.downloadSong(context, file.getFileUrl(), Util.getlast(file.getName())[0] + "bmob." + Util.getlast(file.getName())[1]);
-                LGDApplication.getInstance().setFirst(true);
+//                LGDApplication.getInstance().setFirst(true);
             }
         });
         return convertView;

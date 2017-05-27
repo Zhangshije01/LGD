@@ -1,12 +1,9 @@
 package com.lgd.lgdthesis.mvp.contract;
 
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.widget.EditText;
 
 import com.lgd.lgdthesis.bean.FindCircleBean;
-import com.lgd.lgdthesis.bean.UserBean;
 import com.lgd.lgdthesis.mvp.precenter.BasePresenter;
 import com.lgd.lgdthesis.mvp.view.BaseMvpView;
 

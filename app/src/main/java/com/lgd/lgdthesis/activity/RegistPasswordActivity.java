@@ -3,15 +3,13 @@ package com.lgd.lgdthesis.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.lgd.lgdthesis.R;
-import com.lgd.lgdthesis.app.LGDApplication;
 import com.lgd.lgdthesis.bean.UserBean;
-import com.lgd.lgdthesis.cache.LGDSharedprefrence;
 import com.lgd.lgdthesis.databinding.ActivityRegistPasswordBinding;
 import com.lgd.lgdthesis.utils.ToastUtils;
 
@@ -37,6 +35,7 @@ public class RegistPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final String password = mBinding.etPassword.getText().toString();
+
                 if(password.length()==0|| TextUtils.isEmpty(password)){
                     ToastUtils.show("请输入密码");
                     return;
@@ -52,6 +51,7 @@ public class RegistPasswordActivity extends AppCompatActivity {
                             ToastUtils.show("注册成功");
 
                             LoginRegistActivity.start(RegistPasswordActivity.this,userBean);
+
                             finish();
                         }else {
                             ToastUtils.show("注册失败："+e.getMessage());
@@ -61,6 +61,13 @@ public class RegistPasswordActivity extends AppCompatActivity {
                 });
             }
         });
+        mBinding.ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
+
 }

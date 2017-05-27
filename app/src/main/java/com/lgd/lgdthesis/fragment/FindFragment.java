@@ -3,7 +3,6 @@ package com.lgd.lgdthesis.fragment;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
@@ -13,31 +12,36 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.lgd.lgdthesis.R;
+import com.lgd.lgdthesis.activity.ArticleDetailActivity;
 import com.lgd.lgdthesis.adapter.AutoPlayPagerAdapter;
-import com.lgd.lgdthesis.adapter.SwipeViewPagerAdapter;
+import com.lgd.lgdthesis.adapter.OnRecyclerViewMainListener;
+import com.lgd.lgdthesis.adapter.RefrashRecyclerFindAdapter;
 import com.lgd.lgdthesis.base.BasesFragment;
 import com.lgd.lgdthesis.bean.FindCircleBean;
-import com.lgd.lgdthesis.R;
-import com.lgd.lgdthesis.adapter.RefrashRecyclerFindAdapter;
+import com.lgd.lgdthesis.broadcast.LGDPushReceiver;
 import com.lgd.lgdthesis.databinding.FragmentFindBinding;
-import com.lgd.lgdthesis.mvp.contract.FindContract;
-import com.lgd.lgdthesis.mvp.contract.HomeContract;
-import com.lgd.lgdthesis.mvp.precenter.FindPresenter;
-import com.lgd.lgdthesis.mvp.precenter.HomePresenter;
 import com.lgd.lgdthesis.utils.LogUtils;
+import com.lgd.lgdthesis.utils.ToastUtils;
 import com.lgd.lgdthesis.view.ColumnHorizontalScrollView;
+import com.lgd.lgdthesis.view.MyDecoration;
 import com.xyzlf.autoplay.viewpager.CustomerBanner;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 
-public class FindFragment extends BasesFragment implements FindContract.FindView {
+
+public class FindFragment extends BasesFragment implements LGDPushReceiver.EventListener{
     FragmentFindBinding mBinding;
 
     private LinearLayoutManager linearLayoutManager;
@@ -50,19 +54,13 @@ public class FindFragment extends BasesFragment implements FindContract.FindView
     private ColumnHorizontalScrollView mColumnHorizontalScrollView;
     private LinearLayout mRadioGroup_content;
     private RelativeLayout mrl_collum;
-    private FindContract.Presenter mPresenter;
     private List<FindCircleBean> findCircleBeen;
-
+    private int i=1;
 
     public FindFragment() {
         // Required empty public constructor
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mPresenter = new FindPresenter(this);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -84,29 +82,36 @@ public class FindFragment extends BasesFragment implements FindContract.FindView
         linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
 
-        mPresenter.queryArticle(1);
 
         mBinding.recylerViewFind.setLayoutManager(linearLayoutManager);
         mBinding.recylerViewFind.setAdapter(adapter = new RefrashRecyclerFindAdapter(getContext()));
         setHeaderView(mBinding.recylerViewFind);
         setFooterView(mBinding.recylerViewFind);
-
+        mBinding.recylerViewFind.addItemDecoration(new MyDecoration(mContext, MyDecoration.VERTICAL_LIST));
         initHeaderScrollView();
         initHeaderView();
+
+
+        //下拉加载
         mBinding.swipeRefreshFind.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mBinding.getRoot().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        LogUtils.d("list a " + findCircleBeen.size());
-
-                        adapter.addItems(findCircleBeen, false);
-                        mBinding.swipeRefreshFind.setRefreshing(false);
-                    }
-                }, 3000);
+                i++;
+                queryArticle();
             }
         });
+
+        //设置RecyclerView的点击事件
+        adapter.setOnRecyclerViewListener(new OnRecyclerViewMainListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                FindCircleBean findCircleBean = adapter.getItem(position);
+                LogUtils.d("dianji"+position);
+                ArticleDetailActivity.start(mContext,findCircleBean);
+
+            }
+        });
+
     }
 
     private void setHeaderView(RecyclerView view) {
@@ -169,14 +174,53 @@ public class FindFragment extends BasesFragment implements FindContract.FindView
 
 
     }
-
-    @Override
-    public void attachPresenter(FindContract.Presenter presenter) {
-        this.mPresenter = presenter;
+    public void queryArticle() {
+        BmobQuery<FindCircleBean> query = new BmobQuery<>();
+        query.order("-createdAt")
+                .findObjects(new FindListener<FindCircleBean>() {
+                    @Override
+                    public void done(List<FindCircleBean> list, BmobException e) {
+                        if(e == null){
+                            adapter.addItems(list, true);
+                            mBinding.swipeRefreshFind.setRefreshing(false);
+                        }else{
+                            ToastUtils.show(e.getMessage());
+                            return;
+                        }
+                    }
+                });
     }
 
     @Override
-    public void updateArticle(List<FindCircleBean> findCircleBeen) {
-        this.findCircleBeen = findCircleBeen;
+    public void onResume() {
+        super.onResume();
+        mBinding.llFind.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                mBinding.llFind.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                mBinding.swipeRefreshFind.setRefreshing(true);
+                //自动刷新
+                queryArticle();
+
+            }
+        });
+        LGDPushReceiver.regist(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LGDPushReceiver.unRegist(this);
+    }
+
+    @Override
+    public void onNewPost() {
+        LogUtils.d("什么调集吧玩意");
+
+    }
+
+    @Override
+    public void onAtOne() {
+        LogUtils.d("什么调集吧玩意");
     }
 }

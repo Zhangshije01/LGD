@@ -1,6 +1,7 @@
 package com.lgd.lgdthesis.base;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -81,5 +82,16 @@ public class BasesFragment extends Fragment {
         super.onDestroy();
         UMShareAPI.get(getActivity()).release();
 
+    }
+    /**启动指定Activity
+     * @param target
+     * @param bundle
+     */
+    public void startActivity(Class<? extends Activity> target, Bundle bundle) {
+        Intent intent = new Intent();
+        intent.setClass(getActivity(), target);
+        if (bundle != null)
+            intent.putExtra(getActivity().getPackageName(), bundle);
+        getActivity().startActivity(intent);
     }
 }

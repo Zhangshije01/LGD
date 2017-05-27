@@ -29,6 +29,24 @@ public class LGDSharedprefrence implements LGDAppUtils.PreferenceKeys{
         SharedPreferences sharedPreferences = initSharedPreferences();
         return sharedPreferences.getString(USER_ACCOUNT,"");
     }
+    public static void setUserName(String userName){
+        SharedPreferences.Editor editor = initSharedPreferences().edit();
+        editor.putString(USER_NAME,userName);
+        editor.apply();
+    }
+    public static String getUserName(){
+        SharedPreferences sharedPreferences = initSharedPreferences();
+        return sharedPreferences.getString(USER_NAME,"");
+    }
+    public static void setUserAvator(String userName){
+        SharedPreferences.Editor editor = initSharedPreferences().edit();
+        editor.putString(USER_AVATOR,userName);
+        editor.apply();
+    }
+    public static String getUserAvator(){
+        SharedPreferences sharedPreferences = initSharedPreferences();
+        return sharedPreferences.getString(USER_AVATOR,"");
+    }
 
     public static void setUserPassword(String userAccount){
         SharedPreferences.Editor editor = initSharedPreferences().edit();
@@ -58,5 +76,25 @@ public class LGDSharedprefrence implements LGDAppUtils.PreferenceKeys{
     public static String getUserInstallId(){
         SharedPreferences sharedPreferences = initSharedPreferences();
         return sharedPreferences.getString(USER_INSTALLID,"");
+    }
+
+    public static void setAllreadyPermission(){
+        SharedPreferences.Editor editor = initSharedPreferences().edit();
+        editor.putBoolean(ALLREADY_PERMISSION,true);
+        editor.apply();
+    }
+    public static boolean getAllreadyPermission(){
+        SharedPreferences sharedPreferences = initSharedPreferences();
+        return sharedPreferences.getBoolean(ALLREADY_PERMISSION,false);
+    }
+
+    public static void setAllreadyScanFile(){
+        SharedPreferences.Editor editor = initSharedPreferences().edit();
+        editor.putBoolean(ALREADY_SCAN_FILE,true);
+        editor.apply();
+    }
+    public static boolean getAllreadyScanFile(){
+        SharedPreferences sharedPreferences = initSharedPreferences();
+        return sharedPreferences.getBoolean(ALREADY_SCAN_FILE,false);
     }
 }

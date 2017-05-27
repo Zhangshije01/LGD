@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.lgd.lgdthesis.view.TextViewPlus
+        android:id="@+id/tv_friend_detail_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="2.02 11:14"
+        android:textSize="@dimen/text_size_big"
+        app:customFont="@string/font_medium"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        />
+    <com.lgd.lgdthesis.view.TextViewPlus
+        android:id="@+id/tv_friend_detail_aritcle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="银河"
+        android:textSize="@dimen/text_size_bigger"
+        app:customFont="@string/font_regular"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        />
+    <com.lgd.lgdthesis.view.TextViewPlus
+        android:id="@+id/tv_friend_detail_flover"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="喜欢1"
+        android:textSize="@dimen/text_size_big"
+        app:customFont="@string/font_regular"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        />
+
+
+</LinearLayout>

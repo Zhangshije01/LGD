@@ -3,10 +3,10 @@ package com.lgd.lgdthesis.bean;
 import cn.bmob.v3.BmobObject;
 
 /**
- * Created by 蜗牛 on 2017-05-07.
+ * Created by 蜗牛 on 2017-05-23.
  */
 
-public class UserBean extends BmobObject{
+public class UserBean extends BmobObject {
     private String userAnvator;//用户头像
     private String userName;//用户昵称
     private String homePage;//用户主页
@@ -82,4 +82,18 @@ public class UserBean extends BmobObject{
     public String getInstallId() {
         return installId;
     }
+
+    @Override
+    public String toString() {
+        return "UserBean{" +
+                "userAnvator='" + userAnvator + '\'' +
+                ", userName='" + userName + '\'' +
+                ", homePage='" + homePage + '\'' +
+                ", userDetail='" + userDetail + '\'' +
+                ", userAccount='" + userAccount + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", installId='" + installId + '\'' +
+                '}';
+    }
 }
+

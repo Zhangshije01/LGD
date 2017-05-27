@@ -7,9 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.lgd.lgdthesis.bean.FindCircleBean;
 import com.lgd.lgdthesis.R;
-import com.lgd.lgdthesis.utils.LogUtils;
+import com.lgd.lgdthesis.bean.FindCircleBean;
 import com.lgd.lgdthesis.view.CircleImageView;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ import java.util.List;
  * Created by 蜗牛 on 2017-05-06.
  */
 
-public class RefrashRecyclerFindAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class RefrashRecyclerFindAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener{
 
     private LayoutInflater mInflater;
     private Context mContext;
@@ -47,11 +46,16 @@ public class RefrashRecyclerFindAdapter extends RecyclerView.Adapter<RecyclerVie
     public View getHeaderView() {
         return mHeaderView;
     }
+    private OnRecyclerViewMainListener onRecyclerViewListener;
 
+    public void setOnRecyclerViewListener(OnRecyclerViewMainListener onRecyclerViewListener) {
+        this.onRecyclerViewListener = onRecyclerViewListener;
+    }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if(mHeaderView != null && viewType == TYPE_HEADER) return new NomalViewHolder(mHeaderView);
         View layout = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_find_circle_layout, parent, false);
+        layout.setOnClickListener(this);
         return new NomalViewHolder(layout);
     }
 
@@ -59,9 +63,17 @@ public class RefrashRecyclerFindAdapter extends RecyclerView.Adapter<RecyclerVie
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if(getItemViewType(position) == TYPE_HEADER) return;
         final int pos = getRealPosition(holder);
+        holder.itemView.setTag(pos);
         FindCircleBean findCircleBean = mLists.get(pos);
         if(holder instanceof NomalViewHolder) {
-            ((NomalViewHolder) holder).tv_find_name.setText("adsf");
+            ((NomalViewHolder) holder).tv_find_name.setText(findCircleBean.getUser_name());
+            ((NomalViewHolder) holder).tv_find_time.setText(findCircleBean.getTime());
+            ((NomalViewHolder) holder).tv_find_type.setText(findCircleBean.getArticle_type());
+            ((NomalViewHolder) holder).tv_find_title.setText(findCircleBean.getDetails());
+            ((NomalViewHolder) holder).tv_find_hasRead.setText("阅读 "+findCircleBean.getHasReaded()+"*");
+            ((NomalViewHolder) holder).tv_find_hasComment.setText("评论 "+findCircleBean.getHasComment()+"*");
+            ((NomalViewHolder) holder).tv_find_hasFlad.setText("喜欢 "+findCircleBean.getHasFlad()+"*");
+            ((NomalViewHolder) holder).tv_find_hasZan.setText("赞 "+findCircleBean.getHasZan());
         }
     }
 
@@ -71,7 +83,13 @@ public class RefrashRecyclerFindAdapter extends RecyclerView.Adapter<RecyclerVie
         if(position == 0) return TYPE_HEADER;
         return TYPE_NORMAL;
     }
-
+    @Override
+    public void onClick(View v) {
+        onRecyclerViewListener.onItemClick(v,(int)v.getTag());
+    }
+    public FindCircleBean getItem(int postion){
+        return mLists.get(postion);
+    }
     public int getRealPosition(RecyclerView.ViewHolder holder) {
         int position = holder.getLayoutPosition();
         return mHeaderView == null ? position : position - 1;

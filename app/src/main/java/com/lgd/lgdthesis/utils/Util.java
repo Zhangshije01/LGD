@@ -1,11 +1,11 @@
 package com.lgd.lgdthesis.utils;
 
+import android.content.Intent;
+import android.net.Uri;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import android.content.Intent;
-import android.net.Uri;
 
 public class Util {
 	public static String[] getlast(String name){
@@ -31,6 +31,13 @@ public class Util {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String s1=sdf.format(s);
 		return s1;
+	}
+	public static boolean checkSdCard() {
+		if (android.os.Environment.getExternalStorageState().equals(
+				android.os.Environment.MEDIA_MOUNTED))
+			return true;
+		else
+			return false;
 	}
 
 }

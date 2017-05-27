@@ -3,15 +3,14 @@ package com.lgd.lgdthesis.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
 import com.lgd.lgdthesis.R;
 import com.lgd.lgdthesis.databinding.ActivityRegistBinding;
 import com.lgd.lgdthesis.utils.ToastUtils;
-import com.mob.commons.SMSSDK;
 
 import cn.smssdk.OnSendMessageHandler;
 
@@ -45,6 +44,12 @@ public class RegistActivity extends AppCompatActivity {
                         return false;
                     }
                 });
+            }
+        });
+        mBinding.ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

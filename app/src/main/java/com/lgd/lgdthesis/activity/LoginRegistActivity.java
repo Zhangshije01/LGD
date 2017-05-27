@@ -3,7 +3,6 @@ package com.lgd.lgdthesis.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.view.View;
 import com.lgd.lgdthesis.R;
 import com.lgd.lgdthesis.app.LGDApplication;
 import com.lgd.lgdthesis.base.BasesActivity;
-import com.lgd.lgdthesis.bean.FindCircleBean;
 import com.lgd.lgdthesis.bean.UserBean;
 import com.lgd.lgdthesis.cache.LGDSharedprefrence;
 import com.lgd.lgdthesis.databinding.ActivityLoginRegistBinding;
@@ -22,6 +20,8 @@ import com.lgd.lgdthesis.utils.ToastUtils;
 
 import java.util.List;
 
+import cn.bmob.newim.BmobIM;
+import cn.bmob.newim.bean.BmobIMUserInfo;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
@@ -72,6 +72,12 @@ public class LoginRegistActivity extends BasesActivity implements HomeContract.M
                 initLogin(userName, userPassword);
             }
         });
+        mBinding.ivLoginBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
     public void initLogin(final String userName, final String userPassword){
         BmobQuery<UserBean> query = new BmobQuery<>();
@@ -84,6 +90,8 @@ public class LoginRegistActivity extends BasesActivity implements HomeContract.M
                     if(list !=null && list.size()>0){
                         if(userPassword.equals(password)){
                             //登录成功
+
+
                             ToastUtils.show("登录成功");
                             UserBean userBean = list.get(0);
                             LGDSharedprefrence.setUserAccount(userName);
@@ -92,6 +100,8 @@ public class LoginRegistActivity extends BasesActivity implements HomeContract.M
                             LGDSharedprefrence.setUserInstallId(userBean.getInstallId());
                             LGDApplication.getInstance().setUserBean(userBean);
                             UserDetailsActivity.start(LoginRegistActivity.this);
+                            BmobIM.getInstance().updateUserInfo(new BmobIMUserInfo(userBean.getObjectId(), userBean.getUserName(), userBean.getUserAnvator()));
+
                             finish();
                         }
                     }

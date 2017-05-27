@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.IdRes;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,9 +17,6 @@ import com.lgd.lgdthesis.databinding.ActivityUserDetailsBinding;
 import com.lgd.lgdthesis.fragment.detailFragment.UserDetailArticleFragment;
 import com.lgd.lgdthesis.fragment.detailFragment.UserDetailMoreFragment;
 import com.lgd.lgdthesis.fragment.detailFragment.UserDetaildynamicFragment;
-import com.lgd.lgdthesis.utils.LogUtils;
-
-import java.util.List;
 
 public class UserDetailsActivity extends AppCompatActivity {
 
@@ -42,6 +38,7 @@ public class UserDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 LoginRegistActivity.start(UserDetailsActivity.this);
+                finish();
             }
         });
         initFragment();
@@ -50,6 +47,12 @@ public class UserDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 UserEditActivity.start(UserDetailsActivity.this);
+                finish();
+            }
+        });
+        mBinding.ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 finish();
             }
         });

@@ -28,6 +28,7 @@
                 android:layout_gravity="center_vertical"
                 android:src="@mipmap/icon_user_setting"/>
             <ImageView
+                android:id="@+id/iv_search"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginRight="20dp"
@@ -71,6 +72,8 @@
             android:background="@color/color_view_gray"/>
 
         <LinearLayout
+
+            android:id="@+id/ll_message_jianxin"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal">
@@ -167,7 +170,7 @@
                 android:layout_marginLeft="20dp"/>
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/tv_message_statitic"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"

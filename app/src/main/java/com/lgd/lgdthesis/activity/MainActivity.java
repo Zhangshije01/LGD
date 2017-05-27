@@ -5,14 +5,15 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 
 import com.lgd.lgdthesis.R;
-import com.lgd.lgdthesis.app.LGDApplication;
 import com.lgd.lgdthesis.base.BasesActivity;
-import com.lgd.lgdthesis.bean.UserBean;
+import com.lgd.lgdthesis.bmob.IMMLeaks;
+import com.lgd.lgdthesis.bmob.bean.User;
+import com.lgd.lgdthesis.bmob.event.RefreshEvent;
+import com.lgd.lgdthesis.broadcast.LGDPushReceiver;
 import com.lgd.lgdthesis.cache.LGDSharedprefrence;
 import com.lgd.lgdthesis.databinding.ActivityMainBinding;
 import com.lgd.lgdthesis.fragment.FindFragment;
@@ -23,22 +24,27 @@ import com.lgd.lgdthesis.mvp.contract.HomeContract;
 import com.lgd.lgdthesis.mvp.precenter.HomePresenter;
 import com.lgd.lgdthesis.utils.LogUtils;
 import com.lgd.lgdthesis.utils.ToastUtils;
+import com.orhanobut.logger.Logger;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
+import cn.bmob.newim.BmobIM;
+import cn.bmob.newim.core.ConnectionStatus;
+import cn.bmob.newim.listener.ConnectListener;
+import cn.bmob.newim.listener.ConnectStatusChangeListener;
 import cn.bmob.v3.BmobInstallation;
 import cn.bmob.v3.BmobPushManager;
-import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.PushListener;
 
-public class MainActivity extends BasesActivity implements HomeContract.MvpView {
+public class MainActivity extends BasesActivity implements HomeContract.MvpView,LGDPushReceiver.EventListener{
     ActivityMainBinding mBinding;
     private Button[] mTabs;
     private MainFragment mainFragment;
@@ -58,6 +64,7 @@ public class MainActivity extends BasesActivity implements HomeContract.MvpView 
         homePresenter = new HomePresenter(this);
         initView();
         toPushNotification();
+        setBmob();
     }
 
     public void initView() {
@@ -130,6 +137,13 @@ public class MainActivity extends BasesActivity implements HomeContract.MvpView 
     @Override
     protected void onResume() {
         super.onResume();
+        LGDPushReceiver.regist(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LGDPushReceiver.unRegist(this);
     }
 
     public void toPushNotification() {
@@ -144,18 +158,18 @@ public class MainActivity extends BasesActivity implements HomeContract.MvpView 
             boolean isPushTimeThree = isInTime("17:00-21:00", curTime);
             if (isPushTimeOne || isPushTimeTwo || isPushTimeThree) {
                 LogUtils.d("push le ");
-//                BmobPushManager bmobPush1 = new BmobPushManager();
-//                bmobPush1.pushMessageAll("Hello Bmob.");
-
-
-                BmobPushManager bmobPush = new BmobPushManager();
-                BmobQuery<BmobInstallation> query = BmobInstallation.getQuery();
-                query.addWhereEqualTo("installId", installationId);
-                bmobPush.setQuery(query);
-                JSONObject data = new JSONObject();
-                data.put("tag", "push");
-                data.put("obj", "请及时提交论文状态");
-                bmobPush.pushMessage(data);
+                BmobPushManager<BmobInstallation> manager = new BmobPushManager<BmobInstallation>();
+                JSONObject json = new JSONObject();
+                json.put("tag", "push");
+                json.put("obj", "请及时提交论文状态");
+                manager.pushMessageAll(json, new PushListener() {
+                    @Override
+                    public void done(BmobException e) {
+                        if(e == null){
+                            LogUtils.d("及时提交推送完成");
+                        }
+                    }
+                });
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -203,6 +217,46 @@ public class MainActivity extends BasesActivity implements HomeContract.MvpView 
             e.printStackTrace();
             throw new IllegalArgumentException("Illegal Argument arg:" + sourceTime);
         }
+
+    }
+
+
+
+    public void setBmob(){
+        User user = BmobUser.getCurrentUser(User.class);
+        LogUtils.d("userzsja"+(user==null));
+        if(user != null){
+            BmobIM.connect(user.getObjectId(), new ConnectListener() {
+                @Override
+                public void done(String uid, BmobException e) {
+                    if (e == null) {
+                        Logger.i("connect success");
+                        //服务器连接成功就发送一个更新事件，同步更新会话及主页的小红点
+                        EventBus.getDefault().post(new RefreshEvent());
+                    } else {
+                        Logger.e(e.getErrorCode() + "/" + e.getMessage());
+                    }
+                }
+            });
+            //监听连接状态，也可通过BmobIM.getInstance().getCurrentStatus()来获取当前的长连接状态
+            BmobIM.getInstance().setOnConnectStatusChangeListener(new ConnectStatusChangeListener() {
+                @Override
+                public void onChange(ConnectionStatus status) {
+                    ToastUtils.show("" + status.getMsg());
+                }
+            });
+            //解决leancanary提示InputMethodManager内存泄露的问题
+            IMMLeaks.fixFocusedViewLeak(getApplication());
+        }
+
+    }
+
+    @Override
+    public void onNewPost() {
+    }
+
+    @Override
+    public void onAtOne() {
 
     }
 }

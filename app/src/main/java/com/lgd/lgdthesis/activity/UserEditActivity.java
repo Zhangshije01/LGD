@@ -6,16 +6,19 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
 import com.lgd.lgdthesis.R;
 import com.lgd.lgdthesis.app.LGDApplication;
+import com.lgd.lgdthesis.bean.FriendBean;
 import com.lgd.lgdthesis.bean.UserBean;
+import com.lgd.lgdthesis.cache.LGDSharedprefrence;
 import com.lgd.lgdthesis.databinding.ActivityUserEditBinding;
 import com.lgd.lgdthesis.utils.LogUtils;
 import com.lgd.lgdthesis.utils.ToastUtils;
@@ -25,6 +28,7 @@ import java.io.File;
 
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
@@ -35,6 +39,7 @@ public class UserEditActivity extends AppCompatActivity {
     private String photoPath;//拍照后图片保存的路径
     private String anvatorUrl;//图片上传成功后保存地址
     private ProgressDialog pd;//放图片时给用户的提示
+    private String et_username;
     private UserBean userBean;
 
     public static void start(Context context) {
@@ -47,6 +52,11 @@ public class UserEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_user_edit);
         userBean = LGDApplication.getInstance().getUserBean();
+        // 利用ImageLoader将用户选取的图片放到ivAvatar中显示
+        ImageLoader.getInstance().displayImage(userBean.getUserAnvator(), mBinding.ivUserDetailAnvator);
+        if(!TextUtils.isEmpty(userBean.getUserName())){
+            mBinding.etUsername.setText(userBean.getUserName());
+        }
         mBinding.llUserEditAnvator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,16 +71,45 @@ public class UserEditActivity extends AppCompatActivity {
                     ToastUtils.show("请登录");
                 }
                 userBean.setUserAnvator(anvatorUrl);
+                et_username = mBinding.etUsername.getText().toString();
+                if(TextUtils.isEmpty(et_username)){
+                    mBinding.etUsername.setText("匿名");
+                }
+                userBean.setUserName(et_username);
                 userBean.update(userBean.getObjectId(),new UpdateListener() {
                     @Override
                     public void done(BmobException e) {
                         if(e == null){
                             ToastUtils.show("保存成功");
+                            LGDSharedprefrence.setUserName(et_username);
+                            LGDSharedprefrence.setUserAvator(anvatorUrl);
+                            addFriend(userBean);
                         }else{
                             ToastUtils.show(e.getMessage());
                         }
                     }
                 });
+            }
+        });
+        mBinding.ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+    public void addFriend(UserBean userBean){
+        FriendBean friendBean = new FriendBean();
+        friendBean.setAnvator(userBean.getUserAnvator());
+        friendBean.setName(userBean.getUserName());
+        friendBean.setPhone(userBean.getUserAccount());
+        friendBean.save(new SaveListener<String>() {
+            @Override
+            public void done(String s, BmobException e) {
+                if(e == null){
+                    LogUtils.d(" friend ok");
+                }
             }
         });
     }

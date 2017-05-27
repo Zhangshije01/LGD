@@ -1,27 +1,29 @@
 package com.lgd.lgdthesis.activity;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.format.Formatter;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.lgd.lgdthesis.R;
 import com.lgd.lgdthesis.adapter.UpdateAdapter;
-import com.lgd.lgdthesis.app.LGDApplication;
 import com.lgd.lgdthesis.bean.FilePathBean;
+import com.lgd.lgdthesis.cache.LGDSharedprefrence;
 import com.lgd.lgdthesis.sqlite.DBUtil;
 import com.lgd.lgdthesis.utils.LogUtils;
 import com.lgd.lgdthesis.utils.Util;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -38,6 +40,7 @@ public class SendArticleActivity extends AppCompatActivity {
     Handler handler;
     boolean isFirst;
     ProgressDialog dialog;
+    private ImageView iv_back;
 
     List<FilePathBean> listbean;
     ArrayList<File> list = new ArrayList<File>();
@@ -48,6 +51,13 @@ public class SendArticleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_article);
         listview = (ListView) findViewById(R.id.listview_send_arcticle);
+        iv_back = (ImageView) findViewById(R.id.iv_back);
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         getAllFile();
         seak();
     }
@@ -74,6 +84,7 @@ public class SendArticleActivity extends AppCompatActivity {
                     case 1:
                         UpdateAdapter adapter = new UpdateAdapter(SendArticleActivity.this);
                         adapter.addAll((List<FilePathBean>) msg.obj, true);
+                        LogUtils.d("(List<FilePathBean>) msg.obj"+(List<FilePathBean>) msg.obj);
                         listview.setAdapter(adapter);
                         break;
                     case 2:
@@ -107,13 +118,13 @@ public class SendArticleActivity extends AppCompatActivity {
 //        startActivity(intent);
 //    }
     public void seak() {
-        isFirst = LGDApplication.getInstance().isFirst();
+        isFirst = LGDSharedprefrence.getAllreadyScanFile();
         Log.d("TAG", "isfirst" + isFirst);
         dialog = new ProgressDialog(SendArticleActivity.this);
         dialog.setMessage("正在全盘搜索");
         dialog.show();
         listbean = new ArrayList<FilePathBean>();
-        if (isFirst) {
+        if (!isFirst) {
             Log.d("TAG", "time" + Util.Time(new Date()));
             Thread t = new Thread(new Runnable() {
                 @Override
@@ -125,6 +136,7 @@ public class SendArticleActivity extends AppCompatActivity {
 //					listAll = new ArrayList<HashMap<String,Object>>();
 
                     FilePathBean filePathBean;
+                    LogUtils.d("aasf"+file.listFiles());
                     listfile = toListFile(file.listFiles());
                     for (File file2 : listfile) {
 //						HashMap<String, Object> map = new HashMap<String, Object>();
@@ -145,13 +157,13 @@ public class SendArticleActivity extends AppCompatActivity {
 
                     }
 
-//					Collections.sort(listbean, new Comparator<FilePathBean>() {
-//						@Override
-//						public int compare(FilePathBean lhs, FilePathBean rhs) {
-//							// TODO Auto-generated method stub
-//							return -1*lhs.getTime().compareTo(rhs.getTime());
-//						}
-//					});
+					Collections.sort(listbean, new Comparator<FilePathBean>() {
+						@Override
+						public int compare(FilePathBean lhs, FilePathBean rhs) {
+							// TODO Auto-generated method stub
+							return -1*lhs.getTime().compareTo(rhs.getTime());
+						}
+					});
 
                     dialog.dismiss();
                     Log.d("TAG", "time2" + Util.Time(new Date()));
@@ -160,6 +172,7 @@ public class SendArticleActivity extends AppCompatActivity {
                     message.obj = listbean;
                     handler.sendMessage(message);
 
+                    LogUtils.d("listbean1"+listbean.size());
                     SharedPreferences.Editor editor = getSharedPreferences("wordname", MODE_PRIVATE).edit();
                     editor.putInt("num", listbean.size());
                     for (int i = 0; i < listbean.size(); i++) {
@@ -169,7 +182,7 @@ public class SendArticleActivity extends AppCompatActivity {
                         editor.putString("time" + i, listbean.get(i).getTime());
                     }
                     editor.commit();
-                    LGDApplication.getInstance().setFirst(false);
+                    LGDSharedprefrence.setAllreadyScanFile();
                 }
             });
             t.start();
@@ -212,5 +225,11 @@ public class SendArticleActivity extends AppCompatActivity {
     }
     private String formateFileSize(long size){
         return Formatter.formatFileSize(SendArticleActivity.this, size);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dialog.dismiss();
     }
 }

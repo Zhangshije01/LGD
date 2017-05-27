@@ -1,21 +1,17 @@
 package com.lgd.lgdthesis.activity;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.os.Build;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.lgd.lgdthesis.R;
 import com.lgd.lgdthesis.base.BasesActivity;
 import com.lgd.lgdthesis.databinding.ActivityOptionBinding;
-import com.lgd.lgdthesis.utils.LogUtils;
 
 public class OptionActivity extends BasesActivity {
 
@@ -53,5 +49,12 @@ public class OptionActivity extends BasesActivity {
 //        } else {
 //            //软键盘未弹出
 //        }
+        mBinding.ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
+
 }

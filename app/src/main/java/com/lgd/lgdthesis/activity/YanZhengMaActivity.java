@@ -3,10 +3,9 @@ package com.lgd.lgdthesis.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
 import com.lgd.lgdthesis.R;
@@ -67,6 +66,12 @@ public class YanZhengMaActivity extends AppCompatActivity {
                     }
                 };
                 SMSSDK.registerEventHandler(eh);
+            }
+        });
+        mBinding.ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

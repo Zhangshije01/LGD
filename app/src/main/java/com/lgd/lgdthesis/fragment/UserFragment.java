@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +13,10 @@ import com.lgd.lgdthesis.R;
 import com.lgd.lgdthesis.activity.AboutActivity;
 import com.lgd.lgdthesis.activity.OptionActivity;
 import com.lgd.lgdthesis.activity.SearchActivity;
+import com.lgd.lgdthesis.activity.SettingActivity;
 import com.lgd.lgdthesis.activity.UserDetailsActivity;
 import com.lgd.lgdthesis.base.BasesFragment;
+import com.lgd.lgdthesis.cache.LGDSharedprefrence;
 import com.lgd.lgdthesis.databinding.FragmentUserBinding;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -52,19 +53,25 @@ public class UserFragment extends BasesFragment {
                         .setCallback(umShareListener).open();
             }
         });
-//        if(Build.VERSION.SDK_INT>=23){
-//            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
-//                    Manifest.permission.ACCESS_FINE_LOCATION,
-//                    Manifest.permission.CALL_PHONE,
-//                    Manifest.permission.READ_LOGS,
-//                    Manifest.permission.READ_PHONE_STATE,
-//                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-//                    Manifest.permission.SET_DEBUG_APP,
-//                    Manifest.permission.SYSTEM_ALERT_WINDOW,
-//                    Manifest.permission.GET_ACCOUNTS,
-//                    Manifest.permission.WRITE_APN_SETTINGS};
-//            ActivityCompat.requestPermissions(getActivity(),mPermissionList,123);
-//        }
+
+        boolean allreadyPermission = LGDSharedprefrence.getAllreadyPermission();
+        if(!allreadyPermission){
+            if(Build.VERSION.SDK_INT>=23){
+                String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.CALL_PHONE,
+                        Manifest.permission.READ_LOGS,
+                        Manifest.permission.READ_PHONE_STATE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.SET_DEBUG_APP,
+                        Manifest.permission.SYSTEM_ALERT_WINDOW,
+                        Manifest.permission.GET_ACCOUNTS,
+                        Manifest.permission.WRITE_APN_SETTINGS};
+                ActivityCompat.requestPermissions(getActivity(),mPermissionList,123);
+                LGDSharedprefrence.setAllreadyPermission();
+            }
+        }
+
         //设置意见反馈
         mBinding.llUserFragmentOption.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +94,14 @@ public class UserFragment extends BasesFragment {
             }
         });
         //推送设置
-        
+
+
+        //设置
+        mBinding.ivSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SettingActivity.start(getContext());
+            }
+        });
     }
 }

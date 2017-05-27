@@ -5,7 +5,9 @@ import android.content.Context;
 import android.os.Handler;
 import android.text.TextUtils;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.lgd.lgdthesis.bean.UserBean;
+import com.lgd.lgdthesis.bmob.DemoMessageHandler;
 import com.lgd.lgdthesis.cache.LGDSharedprefrence;
 import com.lgd.lgdthesis.utils.LogUtils;
 import com.lgd.lgdthesis.utils.ToastUtils;
@@ -15,8 +17,12 @@ import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.List;
 
+import cn.bmob.newim.BmobIM;
 import cn.bmob.push.BmobPush;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobInstallation;
@@ -37,9 +43,12 @@ public class LGDApplication extends Application{
     private String url;
     private boolean isFirst;
     private String filepath;
+    private int num;
 
     private String userName;
     private String userPassword;
+
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -47,6 +56,9 @@ public class LGDApplication extends Application{
         mContext = getApplicationContext();
         mHandler = new Handler();
         UMShareAPI.get(this);
+        //地图
+        SDKInitializer.initialize(getApplicationContext());
+
         //bmob 账号是  微信  项目是LGDTheists
         Bmob.initialize(this,"71f596145338c007bf6ba1b5edca5d2f");
         // 使用推送服务时的初始化操作
@@ -54,6 +66,12 @@ public class LGDApplication extends Application{
         // 启动推送服务
         BmobPush.startWork(this);
         SMSSDK.initSDK(this,"1da2d30d3e5fe","cd8df2b3736165eee3a0d51fbf9e6bf3");
+        if (getApplicationInfo().packageName.equals(getMyProcessName())){
+            //im初始化
+            BmobIM.init(this);
+            //注册消息接收器
+            BmobIM.registerDefaultMessageHandler(new DemoMessageHandler(this));
+        }
         ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(this));
         Config.DEBUG=true;
         isFirst = true;
@@ -68,6 +86,7 @@ public class LGDApplication extends Application{
             LogUtils.d("sss");
             initLogin(userName,userPassword);
         }
+
     }
     public static LGDApplication getInstance(){
         return lgdApplication;
@@ -119,6 +138,7 @@ public class LGDApplication extends Application{
                             //登录成功
                             UserBean userBean = list.get(0);
                             LGDApplication.getInstance().setUserBean(userBean);
+
                         }
                     }
                 }else{
@@ -126,5 +146,29 @@ public class LGDApplication extends Application{
                 }
             }
         });
+    }
+    /**
+     * 获取当前运行的进程名
+     * @return
+     */
+    public static String getMyProcessName() {
+        try {
+            File file = new File("/proc/" + android.os.Process.myPid() + "/" + "cmdline");
+            BufferedReader mBufferedReader = new BufferedReader(new FileReader(file));
+            String processName = mBufferedReader.readLine().trim();
+            mBufferedReader.close();
+            return processName;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
     }
 }

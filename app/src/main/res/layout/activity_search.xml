@@ -2,6 +2,8 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,6 +18,7 @@
             android:paddingBottom="10dp">
 
             <ImageView
+                android:id="@+id/iv_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/icon_turn_back"
@@ -28,14 +31,19 @@
                 android:orientation="horizontal"
                 android:background="@drawable/shape_search"
                 android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"
                 android:layout_marginRight="30dp">
                 <com.lgd.lgdthesis.view.ClearEditText
+                    android:id="@+id/edit_search"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:paddingLeft="15dp"
+                    android:paddingLeft="20dp"
                     android:background="@null"
                     android:singleLine="true"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:textColor="@color/colot_textview_dark"
                     />
                 <ImageView
                     android:layout_width="wrap_content"

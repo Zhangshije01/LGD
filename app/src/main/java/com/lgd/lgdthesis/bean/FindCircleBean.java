@@ -1,7 +1,5 @@
 package com.lgd.lgdthesis.bean;
 
-import java.io.Serializable;
-
 import cn.bmob.v3.BmobObject;
 
 /**
@@ -111,4 +109,5 @@ public class FindCircleBean extends BmobObject{
     public String getDetails() {
         return details;
     }
+
 }
